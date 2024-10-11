@@ -1,3 +1,7 @@
+<?php
+  include("controladores/conexion.php")
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,20 +42,15 @@
       </div>
     </section>
 
-    <section class="zona2">
-      <h2> Sobre nosotros</h2>
-      <div class="img1" data-aos="fade-right">
-        <img src="https://www.entelgy.com/media/k2/items/cache/f137dcece48070a913d9f960d76f0319_XL.jpg" alt="">
-      </div>
-      <div class="parrafo1">
-        <h3>Nuestra historia</h3> <br>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, sunt sit deleniti delectus vero dicta, dolorem blanditiis placeat reiciendis, facilis ipsa eos similique sapiente dignissimos quisquam tenetur nesciunt magni beatae.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae fuga id impedit ratione libero amet quidem esse ipsa. Odio consectetur blanditiis modi debitis facere libero molestias harum praesentium odit ipsa.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo commodi nesciunt magni eaque? Sit, voluptates, hic esse commodi, quo maiores a error quaerat amet velit optio quos molestiae reprehenderit ab.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid odio assumenda quisquam nobis officiis impedit praesentium quia velit obcaecati laborum officia incidunt minus, temporibus recusandae dicta voluptatum deserunt provident ex.
-        </p>
+    <section class="zona-productos">
+      <div class="contenedor-productos">
+        <?php include("controladores/controlador_productos.php") ?>
       </div>
     </section>
+
+    <footer>
+      <p style="text-align: center">Todos los derechos reservados a Freury Golpe.</p>
+    </footer>
 
     <script src="https://kit.fontawesome.com/0749ca1eb4.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
