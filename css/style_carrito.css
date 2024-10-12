@@ -77,8 +77,8 @@ header ul li a{
 .zona1{
     position: relative;
     width: 100%;
-    height: 40rem;
-    background-image: url(https://static.vecteezy.com/system/resources/previews/006/241/112/non_2x/modern-black-abstract-gradient-radial-background-technology-corporate-design-blank-space-for-text-free-photo.jpg);
+    height: 25rem;
+    background-color: #191e51;
     background-size: cover;
     background-position: center center;
 }
@@ -134,86 +134,117 @@ header.abajo ul li a{
     color: #fff;
 }
 
-.zona-productos{
-    background-color: #d1cbcb;
-    width: 100%;
-    min-height: 115rem;
-    position: relative;
-    left: 0;
-    overflow-y: scroll;
-}
-
-.zona-productos::-webkit-scrollbar {
-    display: none;
-}
-
-.contenedor-productos{
-    position: absolute;
-    width: 90rem;
-    top: 5%;
-    right: 4%;
-}
-
-.producto{
-    background-color: #fff;
+.carrito{
     position: relative;
     width: 100%;
-    height: 20rem;
-    border-radius: 1rem;
-    margin-bottom: 1rem;
-}
-
-.producto img{
-    position: absolute;
-    width: 20rem;
-    height: 19rem;
-    top: .5rem;
-    bottom: .5rem;
-    left: 1rem;
     background-size: cover;
     background-position: center center;
-    display: block;
+
+    /* Flexbox para centrar el contenido */
+    display: flex;
+    justify-content: left; /* Centrar horizontalmente */
+    align-items: center;     /* Centrar verticalmente */
 }
 
-.producto h4{
-    position: absolute;
-    width: 70%;
-    top: 3rem;
-    left: 23rem;
-    font-size: 2rem;
+.contenedor-carrito{
+    width: 70%;   /* Tamaño mediano, puedes ajustarlo según necesites */
+    height: 90%;  /* Ajusta la altura también */
+    border-radius: 1rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Añadir sombra para resaltar */
+    padding: 2rem; /* Espaciado interno para darle margen a los productos */
+    margin-left: 2.5rem;
 }
 
-.precio{
-    position: absolute;
-    width: 70%;
-    top: 8rem;
-    left: 23rem;
-    font-size: 2rem;
-    font: bold;
-}
-
-.stock{
-    position: absolute;
-    width: 70%;
-    top: 11.2rem;
-    left: 23rem;
-    font-size: 2rem;
-    font: bold;
-    color: rgb(17, 228, 17);
-}
-
-.stock span{
-    color: #000;
-}
-
-.producto input{
-    position: absolute;
-    background-color: #136bcf;
-    bottom: .8rem;
-    right: 1rem;
+.titulo-carrito{
+    background-color: #fff;
+    width: 100%;
     padding: .5rem;
-    border-radius: .5rem;
-    color: #fff;
+}
+
+.titulo-carrito h3{
+    font-size: 4rem;
+    margin-left: 1rem;
+}
+
+.titulo-carrito p{
+    text-align: right;
+    margin-right: 1rem;
+}
+
+.contenedor-total{
+    background-color: rgb(141, 165, 32);
+    width: 25%;
+    height: 90%;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-left: 1.5rem;
+}
+
+.productos-carrito{
+    width: 100%;
+    display: flex;
+    position: relative;
+}
+
+.productos-carrito img{
+    height: 14rem;
+    width: 14rem;
+}
+
+.info-producto{
+    position: relative;
+    width: 100%;
+    background-size: cover;
+    background-position: center center;
+
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    position: relative;
+}
+
+.nombre-producto{
+    width: 80%;
+    padding: 1rem;
+    display: inline;
+}
+
+.nombre-producto p{
+    color: #000;
+    font-weight: bold;
+}
+
+.cantidad{
+    position: absolute;
+    padding: 1rem;
+    bottom: 0;
+}
+
+.cantidad p{
+    color: #000000;
+}
+
+.precio-producto{
+    width: 20%;
+    padding: 1rem;
+}
+
+.precio-producto p{
+    color: #000000;
+    text-align: right;
+    margin-right: .8rem;
+}
+
+.precio-total{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    padding: 1.5rem;
+    margin-right: 1rem;
+}
+
+.precio-total span{
+    font-weight: bold;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Dots:wght@400..700&display=swap');

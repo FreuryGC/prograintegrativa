@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Dots:wght@400..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style_productos.css">
+    <link rel="stylesheet" href="css/style_carrito.css">
     <title>HFME</title>
 </head>
 <body>
@@ -22,12 +22,12 @@
       <nav>
         <ul>
           <li><a href="index.php">Inicio</a></li>
-          <li><a href="#">Productos</a></li>
+          <li><a href="productos.php">Productos</a></li>
           <li><a href="#">Servicios</a></li>
           <li><a href="#">Sobre nosotros</a></li>
           <li><a href="#">Contacto</a></li>
           <li ><a href="inicio_sesion.php"><i class="fa-solid fa-right-to-bracket"></i></a></li>
-          <li><a href="carrito.php"><i class="bi bi-cart-fill"></i></a></li>
+          <li><a href=""><i class="bi bi-cart-fill"></i></a></li>
         </ul>
       </nav>
     </header>
@@ -37,17 +37,24 @@
       <div class="hero">
         <div class="contenido-hero">
           <div class="titulo">
-            <h2>Conoce nuestra variedad de productos</h2> <br>
-            <p>Busca la mejor opcion para tu uso personal o negocio y lleva el desempeño al maximo</p>
+            <h2>Termina tu proceso de compra</h2> <br>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="zona-productos">
-      <div class="contenedor-productos">
-        <?php include("controladores/controlador_productos.php") ?>
-      </div>
+    <section class="carrito">
+        <div class="contenedor-carrito">
+            <div class="titulo-carrito">
+                <h3>Carrito</h3>
+                <p>Precio</p>
+                <hr>
+            </div>
+            <?php include("controladores/controlador_carrito.php")?>
+        </div>
+        <div class="contenedor-total">
+             
+        </div>
     </section>
 
     <footer>
