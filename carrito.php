@@ -1,5 +1,6 @@
 <?php
-  include("controladores/conexion.php")
+  include("controladores/conexion.php");
+  include('verificar_sesion.php');
 ?>
 
 <!DOCTYPE html>
@@ -26,8 +27,7 @@
           <li><a href="#">Servicios</a></li>
           <li><a href="#">Sobre nosotros</a></li>
           <li><a href="#">Contacto</a></li>
-          <li ><a href="inicio_sesion.php"><i class="fa-solid fa-right-to-bracket"></i></a></li>
-          <li><a href=""><i class="bi bi-cart-fill"></i></a></li>
+          <?php include ("controladores/menu_sesion.php"); ?>
         </ul>
       </nav>
     </header>
@@ -53,7 +53,7 @@
             <?php include("controladores/controlador_carrito.php")?>
         </div>
         <div class="contenedor-total">
-             
+             <p>lors</p>
         </div>
     </section>
 

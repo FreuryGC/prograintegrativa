@@ -1,9 +1,20 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
+// Iniciar la sesión para poder usar $_SESSION
+session_start();
 
 // Incluir el archivo de conexión a la base de datos
 include('conexion.php');
+
+// Verificar si el usuario está logueado
+if (!isset($_SESSION['cIdUsu'])) {
+    // Si no hay una sesión activa, redirigir al login o mostrar un mensaje
+    echo "Debes estar logueado para añadir productos al carrito.";
+    exit;
+}
+
+// Obtener el ID del usuario desde la sesión
+$idUsuario = $_SESSION['cIdUsu'];
 
 // Consulta para obtener los datos de los productos
 $sql = "SELECT cIdProducto, cNombre, cPrecio, cStock, cImagen FROM tProductos";
@@ -24,7 +35,7 @@ if ($resultado->num_rows > 0) {
         echo '        <input type="hidden" name="cIdProducto" value="' . $fila['cIdProducto'] . '">';
         echo '        <input type="hidden" name="cNombreProd" value="' . htmlspecialchars($fila['cNombre']) . '">';
         echo '        <input type="hidden" name="cCantidad" value="1">'; // Asumimos que se añade 1 producto
-        echo '        <input type="hidden" name="cIdUsuario" value="1">'; // Ajusta a tu lógica de usuario
+        echo '        <input type="hidden" name="cIdUsuario" value="' . $idUsuario . '">'; // ID del usuario desde la sesión
         echo '        <input type="submit" class="boton-añadir" value="Añadir al carrito">';
         echo '      </form>';
 

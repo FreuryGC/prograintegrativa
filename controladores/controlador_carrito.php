@@ -1,6 +1,9 @@
 <?php
 // carrito.php
 
+// Iniciar la sesión para acceder a las variables de sesión
+session_start();
+
 // Conectar a la base de datos
 $host = 'localhost'; // Cambia esto con tu host de base de datos
 $user = 'root';   // Cambia esto con tu usuario de base de datos
@@ -15,10 +18,10 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// ID del cliente, puedes obtenerlo de la sesión o de otro lugar
-$idCliente = 1;  // Cambia este valor al ID real del cliente (p.ej., desde $_SESSION)
+// ID del cliente, obténlo desde la sesión si el usuario está logueado
+$idCliente = isset($_SESSION['cIdUsu']) ? $_SESSION['cIdUsu'] : null;  // Usar la sesión para obtener el ID del usuario
 
-if (empty($idCliente)) {
+if (!$idCliente) {
     echo "Cliente no autenticado o ID de cliente no disponible.";
     exit;
 }
