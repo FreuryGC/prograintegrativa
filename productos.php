@@ -45,8 +45,24 @@
     </section>
 
     <section class="zona-productos">
+      <div class="contenedor-filtros">
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptatem dolore dolorum repellat atque quam nemo, eligendi ex possimus, perferendis eius inventore officia aperiam totam quod iusto. Mollitia, optio ut.</p>
+      </div>
       <div class="contenedor-productos">
-        <?php include("controladores/controlador_productos.php") ?>
+        <div class="info-producto">
+          <div class="imagen-producto">
+            <img src="https://images.samsung.com/is/image/samsung/p6pim/mx/2401/gallery/mx-galaxy-s24-sm-s921bzalltm-thumb-539298545" alt="">
+          </div>
+          <div class="info">
+            <div>
+              <h3>Samsung Galaxy S24 MARBLE GREY 128GB lore</h3>
+            </div>
+            <div class="marca">
+              <p>Por <span>Samsung</span></p>
+            </div>
+          </div>
+        </div>
+        <hr>
       </div>
     </section>
 
