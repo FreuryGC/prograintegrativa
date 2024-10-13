@@ -28,8 +28,26 @@ if (!$idCliente) {
     exit;
 }
 
+// Verificar si se solicita eliminar un producto del carrito
+if (isset($_GET['eliminar'])) {
+    $idProducto = intval($_GET['eliminar']); // Asegurarse de que el ID del producto es un número entero
+
+    // Preparar la consulta para eliminar el producto del carrito
+    $sqlEliminar = "DELETE FROM tCarrito WHERE cIdUsuario = ? AND cIdProducto = ?";
+    $stmtEliminar = $conn->prepare($sqlEliminar);
+    $stmtEliminar->bind_param("ii", $idCliente, $idProducto); // Vincular los parámetros
+
+    if ($stmtEliminar->execute()) {
+        // Redirigir al carrito tras la eliminación para refrescar la lista
+        header("Location: carrito.php");
+        exit;
+    } else {
+        echo "Error al eliminar el producto: " . $conn->error;
+    }
+}
+
 // Ejecutar la consulta para obtener los productos del carrito
-$sql = "SELECT p.cImagen, p.cNombre, c.cCantidad, p.cPrecio
+$sql = "SELECT p.cImagen, p.cNombre, c.cCantidad, p.cPrecio, p.cIdProducto
         FROM tCarrito c
         INNER JOIN tProductos p ON c.cIdProducto = p.cIdProducto
         WHERE c.cIdUsuario = ?";
@@ -59,6 +77,10 @@ while ($row = $result->fetch_assoc()) {
             </div>
             <div class="precio-producto">
                 <p><span>$</span><?= number_format($row['cPrecio'] * $row['cCantidad'], 2) ?></p>
+            </div>
+            <div class="boton-producto">
+                <!-- Añadir enlace para eliminar el producto del carrito -->
+                <a href="carrito.php?eliminar=<?= $row['cIdProducto'] ?>"><i class="bi bi-trash-fill"></i></a>
             </div>
         </div>
         <hr>
