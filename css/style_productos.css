@@ -196,6 +196,22 @@ header.abajo ul li a{
     margin-left: 1rem;
 }
 
+.cantidad-precio{
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.cantidad-precio p{
+    margin-left: 1rem;
+}
+
+.precio{
+    text-align: right;
+    margin-right: 1rem;
+}
+
+
 @import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Dots:wght@400..700&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');

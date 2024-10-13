@@ -60,6 +60,12 @@
             <div class="marca">
               <p>Por <span>Samsung</span></p>
             </div>
+            <div class="cantidad-precio">
+              <p>Disponibles: <span>1</span></p>
+              <div class="precio">
+                <p>12000</p>
+              </div>
+            </div>
           </div>
         </div>
         <hr>
