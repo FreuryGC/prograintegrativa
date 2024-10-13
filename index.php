@@ -1,6 +1,5 @@
 <?php
   include("controladores/conexion.php");
-  include("verificar_sesion.php");
 ?>
 
 <!DOCTYPE html>

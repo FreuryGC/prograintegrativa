@@ -1,7 +1,8 @@
 <?php
 
-// Iniciar la sesión para poder usar $_SESSION
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Incluir el archivo de conexión a la base de datos
 include('conexion.php');

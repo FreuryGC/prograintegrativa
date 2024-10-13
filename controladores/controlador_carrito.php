@@ -2,7 +2,9 @@
 // carrito.php
 
 // Iniciar la sesión para acceder a las variables de sesión
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Conectar a la base de datos
 $host = 'localhost'; // Cambia esto con tu host de base de datos
