@@ -168,6 +168,8 @@ header.abajo ul li a{
 .info-producto img{
     width: 15rem;
     height: 15rem;
+    background-size: cover;
+    background-position: center center;
 }
 
 .info{
