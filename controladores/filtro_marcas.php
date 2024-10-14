@@ -11,6 +11,6 @@ while ($marca = $resultMarcas->fetch_assoc()) {
     if (isset($_GET['marcas']) && in_array($marca['cIdMarca'], $_GET['marcas'])) {
         $checked = 'checked';
     }
-    echo '<label><input type="checkbox" name="marcas[]" value="' . $marca['cIdMarca'] . '" ' . $checked . ' onchange="filtrarProductos()"> ' . htmlspecialchars($marca['cNombreMarca']) . '</label><br>';
+    echo '<label><input type="checkbox" name="marcas[]" value="' . $marca['cIdMarca'] . '" ' . $checked . '> ' . htmlspecialchars($marca['cNombreMarca']) . '</label><br>';
 }
 ?>

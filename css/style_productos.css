@@ -135,6 +135,11 @@ header.abajo ul li a{
 
 .contenedor-filtros{
     width: 100%;
+}
+
+.filtro-busqueda{
+    border-radius: 1rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, .8);
     padding: 1rem;
 }
 
@@ -144,6 +149,8 @@ header.abajo ul li a{
 
 .contenedor-productos{
     width: 100%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, .8);
+    
 }
 
 .info-producto{
@@ -214,7 +221,6 @@ header.abajo ul li a{
     display: inline-block;
     width: 90%;
     height: 4rem;
-    border-radius: 1rem;
     border: gray solid 1px;
 }
 
@@ -243,12 +249,12 @@ header.abajo ul li a{
 
 .zona-checkbox{
     margin-top: 1rem;
-    border: gray solid 1px;
-    border-radius: 1rem
+    border-radius: 1rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, .8);
 }
 
 .zona-checkbox h3{
-    margin-left: 1rem
+    margin-left: 1rem;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Dots:wght@400..700&display=swap');

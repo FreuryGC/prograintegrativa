@@ -1,29 +1,44 @@
 <?php
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Incluir el archivo de conexión a la base de datos
 include('conexion.php');
 
 // Verificar si el usuario está logueado
 if (!isset($_SESSION['cIdUsu'])) {
-    // Si no hay una sesión activa, redirigir al login o mostrar un mensaje
     echo "Debes estar logueado para añadir productos al carrito.";
     exit;
 }
 
-// Obtener el ID del usuario desde la sesión
 $idUsuario = $_SESSION['cIdUsu'];
 
-// Consulta para obtener los datos de los productos, incluyendo la columna cMarca
-$sql = "SELECT cIdProducto, cNombre, cIdMarca, cPrecio, cStock, cImagen FROM tProductos";
+// Iniciar la consulta base
+$sql = "SELECT p.cIdProducto, p.cNombre, p.cIdMarca, p.cPrecio, p.cStock, p.cImagen, m.cNombreMarca 
+        FROM tProductos p 
+        JOIN tMarca m ON p.cIdMarca = m.cIdMarca";
+
+// Añadir condiciones de filtrado
+$condiciones = [];
+if (isset($_GET['busqueda']) && !empty($_GET['busqueda'])) {
+    $busqueda = $conexion->real_escape_string($_GET['busqueda']);
+    $condiciones[] = "p.cNombre LIKE '%$busqueda%'";
+}
+
+if (isset($_GET['marcas']) && !empty($_GET['marcas'])) {
+    $marcas = array_map('intval', $_GET['marcas']);
+    $condiciones[] = "p.cIdMarca IN (" . implode(',', $marcas) . ")";
+}
+
+// Si hay condiciones, añadirlas a la consulta
+if (!empty($condiciones)) {
+    $sql .= " WHERE " . implode(' AND ', $condiciones);
+}
+
 $resultado = $conexion->query($sql);
 
 // Verificar si hay resultados
 if ($resultado->num_rows > 0) {
-    // Recorrer los resultados y generar el HTML
     while ($fila = $resultado->fetch_assoc()) {
         echo '    <div class="info-producto">';
         echo '      <div class="imagen-producto">';
@@ -34,7 +49,7 @@ if ($resultado->num_rows > 0) {
         echo '          <h3>' . htmlspecialchars($fila['cNombre']) . '</h3>';
         echo '        </div>';
         echo '        <div class="marca">';
-        echo '          <p>Por: <span>' . htmlspecialchars($fila['cIdMarca']) . '</span></p>'; // Marca añadida aquí
+        echo '          <p>Por: <span>' . htmlspecialchars($fila['cNombreMarca']) . '</span></p>'; // Mostrar nombre de la marca
         echo '        </div>';
         echo '        <div class="cantidad-precio">';
         echo '          <p>Disponibles: <span>' . htmlspecialchars($fila['cStock']) . '</span></p>';
@@ -47,11 +62,11 @@ if ($resultado->num_rows > 0) {
         echo '        <form method="POST" action="controladores/anadir_prod.php">';
         echo '          <input type="hidden" name="cIdProducto" value="' . $fila['cIdProducto'] . '">';
         echo '          <input type="hidden" name="cNombreProd" value="' . htmlspecialchars($fila['cNombre']) . '">';
-        echo '          <input type="hidden" name="cCantidad" value="1">'; // Asumimos que se añade 1 producto
-        echo '          <input type="hidden" name="cIdUsuario" value="' . $idUsuario . '">'; // ID del usuario desde la sesión
+        echo '          <input type="hidden" name="cCantidad" value="1">';
+        echo '          <input type="hidden" name="cIdUsuario" value="' . $idUsuario . '">';
         echo '          <input type="submit" class="boton-anadir" value="Añadir al carrito">';
         echo '        </form>';
-        echo '        <hr>   ';
+        echo '        <hr>';
         echo '      </div>';
         echo '    </div>';
     }
@@ -59,6 +74,5 @@ if ($resultado->num_rows > 0) {
     echo "No hay productos disponibles.";
 }
 
-// Cerrar la conexión
 $conexion->close();
 ?>

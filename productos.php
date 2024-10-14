@@ -46,18 +46,22 @@
 
 <section class="zona-productos">
     <div class="contenedor-filtros">
-        <h3>Busca específicamente tu producto</h3>
-        <form method="GET" action="" class="busqueda-productos">
-            <input type="text" name="busqueda" placeholder="Buscar productos..." value="<?php echo isset($_GET['busqueda']) ? htmlspecialchars($_GET['busqueda']) : ''; ?>">
-            <button type="submit"><i class="bi bi-search"></i></button>
-        </form>
-        
+        <div class="filtro-busqueda">
+            <h3>Busca específicamente tu producto</h3>
+            <form method="GET" action="" class="busqueda-productos">
+                <input type="text" name="busqueda" placeholder=" Buscar productos..." value="<?php echo isset($_GET['busqueda']) ? htmlspecialchars($_GET['busqueda']) : ''; ?>">
+                <button type="submit"><i class="bi bi-search"></i></button>
+            </form>
+        </div>
+
         <div class="zona-checkbox">
-            <h3 style="margin-top: 1rem">Busca por</h3>
             <div class="filtros">
+                <h3>Busca por</h3>
                 <div class="filtro-marca">
                     <h3>Marca</h3>
-                    <?php include('controladores/filtro_marcas.php'); ?> <!-- Cargar checkboxes desde un archivo separado -->
+                    <form id="filtroMarcasForm" method="GET" action="">
+                        <?php include('controladores/filtro_marcas.php'); ?>
+                    </form>
                 </div>
             </div>
         </div>
@@ -68,6 +72,8 @@
     </div>
 </section>
 
+
+
     <footer>
       <p style="text-align: center">Todos los derechos reservados a Freury Golpe.</p>
     </footer>
@@ -75,7 +81,7 @@
     <script src="https://kit.fontawesome.com/0749ca1eb4.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="js/filtrar_productos.js"></script>
+    <script src="js/filtros.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
