@@ -44,33 +44,29 @@
       </div>
     </section>
 
-    <section class="zona-productos">
-      <div class="contenedor-filtros">
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sequi voluptatem dolore dolorum repellat atque quam nemo, eligendi ex possimus, perferendis eius inventore officia aperiam totam quod iusto. Mollitia, optio ut.</p>
-      </div>
-      <div class="contenedor-productos">
-        <div class="info-producto">
-          <div class="imagen-producto">
-            <img src="https://images.samsung.com/is/image/samsung/p6pim/mx/2401/gallery/mx-galaxy-s24-sm-s921bzalltm-thumb-539298545" alt="">
-          </div>
-          <div class="info">
-            <div>
-              <h3>Samsung Galaxy S24 MARBLE GREY 128GB lore</h3>
+<section class="zona-productos">
+    <div class="contenedor-filtros">
+        <h3>Busca específicamente tu producto</h3>
+        <form method="GET" action="" class="busqueda-productos">
+            <input type="text" name="busqueda" placeholder="Buscar productos..." value="<?php echo isset($_GET['busqueda']) ? htmlspecialchars($_GET['busqueda']) : ''; ?>">
+            <button type="submit"><i class="bi bi-search"></i></button>
+        </form>
+        
+        <div class="zona-checkbox">
+            <h3 style="margin-top: 1rem">Busca por</h3>
+            <div class="filtros">
+                <div class="filtro-marca">
+                    <h3>Marca</h3>
+                    <?php include('controladores/filtro_marcas.php'); ?> <!-- Cargar checkboxes desde un archivo separado -->
+                </div>
             </div>
-            <div class="marca">
-              <p>Por <span>Samsung</span></p>
-            </div>
-            <div class="cantidad-precio">
-              <p>Disponibles: <span>1</span></p>
-              <div class="precio">
-                <p>12000</p>
-              </div>
-            </div>
-          </div>
         </div>
-        <hr>
-      </div>
-    </section>
+    </div>
+
+    <div class="contenedor-productos">
+        <?php include('controladores/controlador_productos.php'); ?>
+    </div>
+</section>
 
     <footer>
       <p style="text-align: center">Todos los derechos reservados a Freury Golpe.</p>
@@ -79,6 +75,7 @@
     <script src="https://kit.fontawesome.com/0749ca1eb4.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/filtrar_productos.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>

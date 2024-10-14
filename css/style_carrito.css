@@ -254,8 +254,19 @@ header.abajo ul li a{
     bottom: 3rem;
 }
 
-.info-producto i{
-    color: #b12626;
+.boton-producto a{
+    color: #fff;
+    background-color: #b12626;
+    padding: .5rem;
+    border-radius: 1rem;
+    text-decoration: none;
+    border: 2px solid rgb(255, 255, 255);  /* Borde interno */
+    outline: 2px solid #b12626;   /* Borde externo */
+}
+
+.boton-producto a:hover {
+    color: white;
+    background-color: #851d1d;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Dots:wght@400..700&display=swap');

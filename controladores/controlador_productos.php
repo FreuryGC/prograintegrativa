@@ -17,29 +17,42 @@ if (!isset($_SESSION['cIdUsu'])) {
 // Obtener el ID del usuario desde la sesión
 $idUsuario = $_SESSION['cIdUsu'];
 
-// Consulta para obtener los datos de los productos
-$sql = "SELECT cIdProducto, cNombre, cPrecio, cStock, cImagen FROM tProductos";
+// Consulta para obtener los datos de los productos, incluyendo la columna cMarca
+$sql = "SELECT cIdProducto, cNombre, cIdMarca, cPrecio, cStock, cImagen FROM tProductos";
 $resultado = $conexion->query($sql);
 
 // Verificar si hay resultados
 if ($resultado->num_rows > 0) {
     // Recorrer los resultados y generar el HTML
     while ($fila = $resultado->fetch_assoc()) {
-        echo '    <div class="producto">';
-        echo '      <img src="' . $fila['cImagen'] . '" alt="">';
-        echo '      <h4>' . htmlspecialchars($fila['cNombre']) . '</h4>';
-        echo '      <p class="precio"><span>$ </span>' . htmlspecialchars($fila['cPrecio']) . '</p>';
-        echo '      <p class="stock">' . htmlspecialchars($fila['cStock']) . ' <span>piezas en stock</span></p>';
+        echo '    <div class="info-producto">';
+        echo '      <div class="imagen-producto">';
+        echo '        <img src="' . htmlspecialchars($fila['cImagen']) . '" alt="">';
+        echo '      </div>';
+        echo '      <div class="info">';
+        echo '        <div>';
+        echo '          <h3>' . htmlspecialchars($fila['cNombre']) . '</h3>';
+        echo '        </div>';
+        echo '        <div class="marca">';
+        echo '          <p>Por: <span>' . htmlspecialchars($fila['cIdMarca']) . '</span></p>'; // Marca añadida aquí
+        echo '        </div>';
+        echo '        <div class="cantidad-precio">';
+        echo '          <p>Disponibles: <span>' . htmlspecialchars($fila['cStock']) . '</span></p>';
+        echo '          <div class="precio">';
+        echo '            <p><span>$</span>' . htmlspecialchars($fila['cPrecio']) . '</p>';
+        echo '          </div>';
+        echo '        </div>';
 
         // Formulario para añadir al carrito
-        echo '      <form method="POST" action="controladores/anadir_prod.php">';
-        echo '        <input type="hidden" name="cIdProducto" value="' . $fila['cIdProducto'] . '">';
-        echo '        <input type="hidden" name="cNombreProd" value="' . htmlspecialchars($fila['cNombre']) . '">';
-        echo '        <input type="hidden" name="cCantidad" value="1">'; // Asumimos que se añade 1 producto
-        echo '        <input type="hidden" name="cIdUsuario" value="' . $idUsuario . '">'; // ID del usuario desde la sesión
-        echo '        <input type="submit" class="boton-añadir" value="Añadir al carrito">';
-        echo '      </form>';
-
+        echo '        <form method="POST" action="controladores/anadir_prod.php">';
+        echo '          <input type="hidden" name="cIdProducto" value="' . $fila['cIdProducto'] . '">';
+        echo '          <input type="hidden" name="cNombreProd" value="' . htmlspecialchars($fila['cNombre']) . '">';
+        echo '          <input type="hidden" name="cCantidad" value="1">'; // Asumimos que se añade 1 producto
+        echo '          <input type="hidden" name="cIdUsuario" value="' . $idUsuario . '">'; // ID del usuario desde la sesión
+        echo '          <input type="submit" class="boton-anadir" value="Añadir al carrito">';
+        echo '        </form>';
+        echo '        <hr>   ';
+        echo '      </div>';
         echo '    </div>';
     }
 } else {

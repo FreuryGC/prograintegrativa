@@ -80,7 +80,7 @@ while ($row = $result->fetch_assoc()) {
             </div>
             <div class="boton-producto">
                 <!-- Añadir enlace para eliminar el producto del carrito -->
-                <a href="carrito.php?eliminar=<?= $row['cIdProducto'] ?>"><i class="bi bi-trash-fill"></i></a>
+                <a href="carrito.php?eliminar=<?= $row['cIdProducto'] ?>">Eliminar</a>
             </div>
         </div>
         <hr>
