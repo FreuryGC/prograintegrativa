@@ -1,86 +1,104 @@
 <?php
-// carrito.php
-
-// Iniciar la sesión para acceder a las variables de sesión
+// Iniciar la sesión si no se ha iniciado ya
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 // Conectar a la base de datos
-$host = 'localhost'; // Cambia esto con tu host de base de datos
-$user = 'root';   // Cambia esto con tu usuario de base de datos
-$password = ''; // Cambia esto con tu contraseña de base de datos
-$dbname = 'hfme'; // Cambia esto con el nombre de tu base de datos
+function getDBConnection() {
+    $host = 'localhost';
+    $user = 'root';
+    $password = '';
+    $dbname = 'hfme';
 
-// Crear la conexión
-$conn = new mysqli($host, $user, $password, $dbname);
-
-// Verificar la conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+    $conn = new mysqli($host, $user, $password, $dbname);
+    if ($conn->connect_error) {
+        die("Conexión fallida: " . $conn->connect_error);
+    }
+    return $conn;
 }
 
-// ID del cliente, obténlo desde la sesión si el usuario está logueado
-$idCliente = isset($_SESSION['cIdUsu']) ? $_SESSION['cIdUsu'] : null;  // Usar la sesión para obtener el ID del usuario
-
-if (!$idCliente) {
-    echo "Cliente no autenticado o ID de cliente no disponible.";
-    exit;
-}
-
-// Verificar si se solicita eliminar un producto del carrito
-if (isset($_GET['eliminar'])) {
-    $idProducto = intval($_GET['eliminar']); // Asegurarse de que el ID del producto es un número entero
-
-    // Preparar la consulta para eliminar el producto del carrito
+// Eliminar producto del carrito
+function eliminarProducto($conn, $idCliente, $idProducto) {
     $sqlEliminar = "DELETE FROM tCarrito WHERE cIdUsuario = ? AND cIdProducto = ?";
     $stmtEliminar = $conn->prepare($sqlEliminar);
-    $stmtEliminar->bind_param("ii", $idCliente, $idProducto); // Vincular los parámetros
-
+    $stmtEliminar->bind_param("ii", $idCliente, $idProducto);
+    
     if ($stmtEliminar->execute()) {
-        // Redirigir al carrito tras la eliminación para refrescar la lista
-        header("Location: carrito.php");
-        exit;
+        // Evitar errores de redirección debido a salida previa
+        header("Location: carrito.php"); 
+        exit; // Es importante después de la redirección
     } else {
         echo "Error al eliminar el producto: " . $conn->error;
     }
 }
 
-// Ejecutar la consulta para obtener los productos del carrito
-$sql = "SELECT p.cImagen, p.cNombre, c.cCantidad, p.cPrecio, p.cIdProducto
-        FROM tCarrito c
-        INNER JOIN tProductos p ON c.cIdProducto = p.cIdProducto
-        WHERE c.cIdUsuario = ?";
+// Obtener los productos del carrito
+function obtenerCarrito($conn, $idCliente) {
+    $sql = "SELECT p.cImagen, p.cNombre, c.cCantidad, p.cPrecio, p.cIdProducto
+            FROM tCarrito c
+            INNER JOIN tProductos p ON c.cIdProducto = p.cIdProducto
+            WHERE c.cIdUsuario = ?";
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $idCliente); // Vincular el parámetro ID cliente
-$stmt->execute();
-$result = $stmt->get_result();
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $idCliente);
+    $stmt->execute();
+    return $stmt->get_result();
+}
+
+// ID del cliente (usado desde la sesión)
+$idCliente = isset($_SESSION['cIdUsu']) ? $_SESSION['cIdUsu'] : null;
+
+// Verificar si el usuario está logueado
+if (!$idCliente) {
+    echo "Cliente no autenticado o ID de cliente no disponible.";
+    exit;
+}
+
+// Conectar a la base de datos
+$conn = getDBConnection();
+
+// Verificar si se solicita eliminar un producto del carrito
+if (isset($_GET['eliminar'])) {
+    $idProducto = intval($_GET['eliminar']);
+    eliminarProducto($conn, $idCliente, $idProducto);
+}
+
+// Obtener los productos del carrito
+$result = obtenerCarrito($conn, $idCliente);
 
 // Inicializar variables para el total de productos y el precio total
 $cantidadTotal = 0;
 $totalPrecio = 0;
+$productos = [];
 
-// Comenzamos a mostrar los productos en el carrito
+// Recorrer los productos del carrito
 while ($row = $result->fetch_assoc()) {
     $cantidadTotal += $row['cCantidad'];
     $totalPrecio += $row['cCantidad'] * $row['cPrecio'];
+    $productos[] = $row;
+}
+
+// Cerrar la conexión
+$conn->close();
+
+// Mostrar los productos en el carrito
+foreach ($productos as $producto) {
     ?>
     <div class="productos-carrito">
-        <img src="<?= htmlspecialchars($row['cImagen']) ?>" alt="<?= htmlspecialchars($row['cNombre']) ?>">
+        <img src="<?= htmlspecialchars($producto['cImagen']) ?>" alt="<?= htmlspecialchars($producto['cNombre']) ?>">
         <div class="info-producto">
             <div class="nombre-producto">
-                <p><?= htmlspecialchars($row['cNombre']) ?></p>
+                <p><?= htmlspecialchars($producto['cNombre']) ?></p>
             </div>
             <div class="cantidad">
-                <p>Cantidad: <span><?= htmlspecialchars($row['cCantidad']) ?></span></p>
+                <p>Cantidad: <span><?= htmlspecialchars($producto['cCantidad']) ?></span></p>
             </div>
             <div class="precio-producto">
-                <p><span>$</span><?= number_format($row['cPrecio'] * $row['cCantidad'], 2) ?></p>
+                <p><span>$</span><?= number_format($producto['cPrecio'] * $producto['cCantidad'], 2) ?></p>
             </div>
             <div class="boton-producto">
-                <!-- Añadir enlace para eliminar el producto del carrito -->
-                <a href="carrito.php?eliminar=<?= $row['cIdProducto'] ?>">Eliminar</a>
+                <a href="carrito.php?eliminar=<?= $producto['cIdProducto'] ?>">Eliminar</a>
             </div>
         </div>
         <hr>
@@ -91,16 +109,5 @@ while ($row = $result->fetch_assoc()) {
 // Si no hay productos en el carrito
 if ($cantidadTotal === 0) {
     echo "<p>Tu carrito está vacío.</p>";
-} else {
-    ?>
-    <!-- Precio total del carrito -->
-    <div class="precio-total">
-        <hr>
-        <p>Subtotal (<span><?= $cantidadTotal ?></span> productos): <span>$<?= number_format($totalPrecio, 2) ?></span></p>
-    </div>
-    <?php
 }
-
-// Cerrar la conexión
-$conn->close();
 ?>

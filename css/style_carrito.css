@@ -135,25 +135,21 @@ header.abajo ul li a{
 }
 
 .carrito{
-    position: relative;
     width: 100%;
-    background-size: cover;
-    background-position: center center;
 
     /* Flexbox para centrar el contenido */
-    display: flex;
-    justify-content: left; /* Centrar horizontalmente */
-    align-items: center;     /* Centrar verticalmente */
+    display: grid;
+    grid-template-columns: 70% 26.5%;
+    gap: 3rem;
 }
 
 .contenedor-carrito{
-    width: 70%;   /* Tamaño mediano, puedes ajustarlo según necesites */
-    height: 90%;  /* Ajusta la altura también */
+    width: 100%;
     border-radius: 1rem;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Añadir sombra para resaltar */
     padding: 2rem; /* Espaciado interno para darle margen a los productos */
-    margin-left: 2.5rem;
     margin-top: 2rem;
+    margin-left: 1.5rem;
 }
 
 .titulo-carrito{
@@ -173,14 +169,47 @@ header.abajo ul li a{
 }
 
 .contenedor-total{
-    background-color: rgb(141, 165, 32);
-    width: 25%;
-    height: 90%;
+    width: 100%;
     border-radius: 1rem;
-    padding: 2rem;
-    margin-left: 1.5rem;
-
+    margin-top: 2rem;
 }
+
+.subtotal{
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Añadir sombra para resaltar */
+    border-radius: 1rem;
+}
+
+.subtotal p{    
+    background-color: #fff;
+    padding: 1rem;
+    font-size: 3rem;
+    border-radius: 1rem;
+}
+
+.subtotal span{
+    font-weight: bold;
+}
+
+.boton {
+    position: relative; /* El contenedor necesita tener position relative */
+    width: 100%;
+    height: 3rem;
+}
+
+.boton a {
+    position: absolute;
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: #ffd814;
+    padding: .5rem;
+    border-radius: 1rem;
+    text-decoration: none;
+    color: #000;
+}
+
 
 .productos-carrito{
     width: 100%;

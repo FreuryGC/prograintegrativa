@@ -46,7 +46,11 @@ if ($resultado->num_rows > 0) {
         echo '        <div class="cantidad-precio">';
         echo '          <p>Disponibles: <span>' . htmlspecialchars($fila['cStock']) . '</span></p>';
         echo '          <div class="precio">';
-        echo '            <p><span>$</span>' . htmlspecialchars($fila['cPrecio']) . '</p>';
+
+        // Formatear el precio con comas y decimales
+        $precioFormateado = number_format($fila['cPrecio'], 2, '.', ',');
+        echo '            <p><span>$</span>' . $precioFormateado . '</p>';
+
         echo '          </div>';
         echo '        </div>';
 

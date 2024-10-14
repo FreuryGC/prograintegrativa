@@ -43,18 +43,27 @@
     </section>
 
     <section class="carrito">
-        <div class="contenedor-carrito">
-            <div class="titulo-carrito">
-                <h3>Carrito</h3>
-                <p>Precio</p>
-                <hr>
-            </div>
-            <?php include("controladores/controlador_carrito.php")?>
+    <div class="contenedor-carrito">
+        <div class="titulo-carrito">
+            <h3>Carrito</h3>
+            <p>Precio</p>
+            <hr>
         </div>
-        <div class="contenedor-total">
-             <p>lors</p>
+
+        <!-- Incluir el controlador que contiene la lógica PHP -->
+        <?php include("controladores/controlador_carrito.php"); ?>
+    </div>
+
+    <div class="contenedor-total">
+        <div class="subtotal">
+            <p>Subtotal (<span><?= $cantidadTotal ?></span> productos): <span>$<?= number_format($totalPrecio, 2) ?></span></p>
         </div>
-    </section>
+        <div class="boton">
+            <a href="#">Proceder al pago</a>
+        </div>
+    </div>
+</section>
+
 
     <footer>
       <p style="text-align: center">Todos los derechos reservados a Freury Golpe.</p>
