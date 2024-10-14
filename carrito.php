@@ -57,9 +57,10 @@
     <div class="contenedor-total">
         <div class="subtotal">
             <p>Subtotal (<span><?= $cantidadTotal ?></span> productos): <span>$<?= number_format($totalPrecio, 2) ?></span></p>
-        </div>
-        <div class="boton">
+            <div class="boton">
             <a href="#">Proceder al pago</a>
+            <br>
+        </div>
         </div>
     </div>
 </section>
