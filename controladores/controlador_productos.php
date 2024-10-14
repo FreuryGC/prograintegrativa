@@ -5,14 +5,6 @@ if (session_status() === PHP_SESSION_NONE) {
 
 include('conexion.php');
 
-// Verificar si el usuario está logueado
-if (!isset($_SESSION['cIdUsu'])) {
-    echo "Debes estar logueado para añadir productos al carrito.";
-    exit;
-}
-
-$idUsuario = $_SESSION['cIdUsu'];
-
 // Iniciar la consulta base
 $sql = "SELECT p.cIdProducto, p.cNombre, p.cIdMarca, p.cPrecio, p.cStock, p.cImagen, m.cNombreMarca 
         FROM tProductos p 
@@ -58,14 +50,20 @@ if ($resultado->num_rows > 0) {
         echo '          </div>';
         echo '        </div>';
 
-        // Formulario para añadir al carrito
-        echo '        <form method="POST" action="controladores/anadir_prod.php">';
-        echo '          <input type="hidden" name="cIdProducto" value="' . $fila['cIdProducto'] . '">';
-        echo '          <input type="hidden" name="cNombreProd" value="' . htmlspecialchars($fila['cNombre']) . '">';
-        echo '          <input type="hidden" name="cCantidad" value="1">';
-        echo '          <input type="hidden" name="cIdUsuario" value="' . $idUsuario . '">';
-        echo '          <input type="submit" class="boton-anadir" value="Añadir al carrito">';
-        echo '        </form>';
+        // Si el usuario está logueado, permitir añadir al carrito
+        if (isset($_SESSION['cIdUsu'])) {
+            $idUsuario = $_SESSION['cIdUsu'];
+            echo '        <form method="POST" action="controladores/anadir_prod.php">';
+            echo '          <input type="hidden" name="cIdProducto" value="' . $fila['cIdProducto'] . '">';
+            echo '          <input type="hidden" name="cNombreProd" value="' . htmlspecialchars($fila['cNombre']) . '">';
+            echo '          <input type="hidden" name="cCantidad" value="1">';
+            echo '          <input type="hidden" name="cIdUsuario" value="' . $idUsuario . '">';
+            echo '          <input type="submit" class="boton-anadir" value="Añadir al carrito">';
+            echo '        </form>';
+        } else {
+            echo '        <p>Inicia sesión para añadir productos al carrito.</p>';
+        }
+        
         echo '        <hr>';
         echo '      </div>';
         echo '    </div>';

@@ -153,6 +153,7 @@ header.abajo ul li a{
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Añadir sombra para resaltar */
     padding: 2rem; /* Espaciado interno para darle margen a los productos */
     margin-left: 2.5rem;
+    margin-top: 2rem;
 }
 
 .titulo-carrito{
