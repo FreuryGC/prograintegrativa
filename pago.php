@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Dots:wght@400..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style_carrito.css">
+    <link rel="stylesheet" href="css/style_pago.css">
     <title>HFME</title>
 </head>
 <body>
@@ -45,22 +45,8 @@
     <section class="carrito">
     <div class="contenedor-carrito">
         <div class="titulo-carrito">
-            <h3>Carrito</h3>
-            <p>Precio</p>
+            <h3>Añade tus datos de pago</h3>
             <hr>
-        </div>
-
-        <!-- Incluir el controlador que contiene la lógica PHP -->
-        <?php include("controladores/controlador_carrito.php"); ?>
-    </div>
-
-    <div class="contenedor-total">
-        <div class="subtotal">
-            <p>Subtotal (<span><?= $cantidadTotal ?></span> productos): <span>$<?= number_format($totalPrecio, 2) ?></span></p>
-            <div class="boton">
-            <a href="pago.php">Proceder al pago</a>
-            <br>
-        </div>
         </div>
     </div>
 </section>
